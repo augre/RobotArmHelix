@@ -82,26 +82,26 @@ namespace RobotArmHelix
 
 #if IRB6700
         //directroy of all stl files
-        private const string MODEL_PATH1 = "IRB6700-MH3_245-300_IRC5_rev02_LINK01_CAD.stl";
-        private const string MODEL_PATH2 = "IRB6700-MH3_245-300_IRC5_rev00_LINK02_CAD.stl";
-        private const string MODEL_PATH3 = "IRB6700-MH3_245-300_IRC5_rev02_LINK03_CAD.stl";
-        private const string MODEL_PATH4 = "IRB6700-MH3_245-300_IRC5_rev01_LINK04_CAD.stl";
-        private const string MODEL_PATH5 = "IRB6700-MH3_245-300_IRC5_rev01_LINK05_CAD.stl";
-        private const string MODEL_PATH6 = "IRB6700-MH3_245-300_IRC5_rev01_LINK06_CAD.stl";
-        private const string MODEL_PATH7 = "IRB6700-MH3_245-300_IRC5_rev02_LINK01_CABLE.stl";
-        private const string MODEL_PATH8 = "IRB6700-MH3_245-300_IRC5_rev02_LINK01m_CABLE.stl";
-        private const string MODEL_PATH9 = "IRB6700-MH3_245-300_IRC5_rev00_LINK02_CABLE.stl";
-        private const string MODEL_PATH10 = "IRB6700-MH3_245-300_IRC5_rev00_LINK02m_CABLE.stl";
-        private const string MODEL_PATH11 = "IRB6700-MH3_245-300_IRC5_rev00_LINK03a_CABLE.stl";
-        private const string MODEL_PATH12 = "IRB6700-MH3_245-300_IRC5_rev00_LINK03b_CABLE.stl";
-        private const string MODEL_PATH13 = "IRB6700-MH3_245-300_IRC5_rev02_LINK03m_CABLE.stl";
-        private const string MODEL_PATH14 = "IRB6700-MH3_245-300_IRC5_rev01_LINK04_CABLE.stl";
-        private const string MODEL_PATH15 = "IRB6700-MH3_245-300_IRC5_rev00_ROD_CAD.stl";
-        private const string MODEL_PATH16 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO1_CAD.stl";
-        private const string MODEL_PATH17 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO2_CAD.stl";
-        private const string MODEL_PATH18 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO3_CAD.stl";
-        private const string MODEL_PATH19 = "IRB6700-MH3_245-300_IRC5_rev01_BASE_CAD.stl";
-        private const string MODEL_PATH20 = "IRB6700-MH3_245-300_IRC5_rev00_CYLINDER_CAD.stl";
+        private const string MODEL_PATH1 = "PPT_O0.stl";
+        private const string MODEL_PATH2 = "PPT_O1.stl";
+        private const string MODEL_PATH3 = "PPT_O2.stl";
+        private const string MODEL_PATH4 = "PPT_O3.stl";
+        private const string MODEL_PATH5 = "PPT_O4.stl";
+        private const string MODEL_PATH6 = "PPT_O5.stl";
+		private const string MODEL_PATH7 = "PPT_O6.stl";
+        private const string MODEL_PATH8 = "PPT_O7.stl";
+        private const string MODEL_PATH9 = "PPT_O8.stl";
+        //private const string MODEL_PATH10 = "IRB6700-MH3_245-300_IRC5_rev00_LINK02m_CABLE.stl";
+        //private const string MODEL_PATH11 = "IRB6700-MH3_245-300_IRC5_rev00_LINK03a_CABLE.stl";
+        //private const string MODEL_PATH12 = "IRB6700-MH3_245-300_IRC5_rev00_LINK03b_CABLE.stl";
+        //private const string MODEL_PATH13 = "IRB6700-MH3_245-300_IRC5_rev02_LINK03m_CABLE.stl";
+        //private const string MODEL_PATH14 = "IRB6700-MH3_245-300_IRC5_rev01_LINK04_CABLE.stl";
+        //private const string MODEL_PATH15 = "IRB6700-MH3_245-300_IRC5_rev00_ROD_CAD.stl";
+        //private const string MODEL_PATH16 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO1_CAD.stl";
+        //private const string MODEL_PATH17 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO2_CAD.stl";
+        //private const string MODEL_PATH18 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO3_CAD.stl";
+        //private const string MODEL_PATH19 = "IRB6700-MH3_245-300_IRC5_rev01_BASE_CAD.stl";
+        //private const string MODEL_PATH20 = "IRB6700-MH3_245-300_IRC5_rev00_CYLINDER_CAD.stl";
 #else
 
         private const string MODEL_PATH1 = "IRB4600_20kg-250_LINK1_CAD_rev04.stl";
@@ -132,20 +132,20 @@ namespace RobotArmHelix
             modelsNames.Add(MODEL_PATH7);
             modelsNames.Add(MODEL_PATH8);
             modelsNames.Add(MODEL_PATH9);
-            modelsNames.Add(MODEL_PATH10);
-            modelsNames.Add(MODEL_PATH11);//Until here for the 4600
+			//            modelsNames.Add(MODEL_PATH10);
+			//            modelsNames.Add(MODEL_PATH11);//Until here for the 4600
 #if IRB6700
-            modelsNames.Add(MODEL_PATH12);
-            modelsNames.Add(MODEL_PATH13);
-            modelsNames.Add(MODEL_PATH14);
-            modelsNames.Add(MODEL_PATH15);
-            modelsNames.Add(MODEL_PATH16);
-            modelsNames.Add(MODEL_PATH17);
-            modelsNames.Add(MODEL_PATH18);
-            modelsNames.Add(MODEL_PATH19);
-            modelsNames.Add(MODEL_PATH20);
+			//            modelsNames.Add(MODEL_PATH12);
+			//            modelsNames.Add(MODEL_PATH13);
+			//            modelsNames.Add(MODEL_PATH14);
+			//            modelsNames.Add(MODEL_PATH15);
+			//            modelsNames.Add(MODEL_PATH16);
+			//            modelsNames.Add(MODEL_PATH17);
+			//            modelsNames.Add(MODEL_PATH18);
+			//            modelsNames.Add(MODEL_PATH19);
+			//            modelsNames.Add(MODEL_PATH20);
 #endif
-            RoboticArm.Content = Initialize_Environment(modelsNames);
+			RoboticArm.Content = Initialize_Environment(modelsNames);
 
             /** Debug sphere to check in which point the joint is rotating**/
             var builder = new MeshBuilder(true, true);
@@ -207,18 +207,18 @@ namespace RobotArmHelix
                 RA.Children.Add(joints[6].model);
                 RA.Children.Add(joints[7].model);
                 RA.Children.Add(joints[8].model);
-                RA.Children.Add(joints[9].model);
-                RA.Children.Add(joints[10].model);
+                //RA.Children.Add(joints[9].model);
+                //RA.Children.Add(joints[10].model);
 #if IRB6700
-                RA.Children.Add(joints[11].model);
-                RA.Children.Add(joints[12].model);
-                RA.Children.Add(joints[13].model);
-                RA.Children.Add(joints[14].model);
-                RA.Children.Add(joints[15].model);
-                RA.Children.Add(joints[16].model);
-                RA.Children.Add(joints[17].model);
-                RA.Children.Add(joints[18].model);
-                RA.Children.Add(joints[19].model);
+                //RA.Children.Add(joints[11].model);
+                //RA.Children.Add(joints[12].model);
+                //RA.Children.Add(joints[13].model);
+                //RA.Children.Add(joints[14].model);
+                //RA.Children.Add(joints[15].model);
+                //RA.Children.Add(joints[16].model);
+                //RA.Children.Add(joints[17].model);
+                //RA.Children.Add(joints[18].model);
+                //RA.Children.Add(joints[19].model);
 #endif
 
 #if IRB6700
@@ -226,20 +226,20 @@ namespace RobotArmHelix
                 changeModelColor(joints[6], cableColor);
                 changeModelColor(joints[7], cableColor);
                 changeModelColor(joints[8], cableColor);
-                changeModelColor(joints[9], cableColor);
-                changeModelColor(joints[10], cableColor);
-                changeModelColor(joints[11], cableColor);
-                changeModelColor(joints[12], cableColor);
-                changeModelColor(joints[13], cableColor);
+                //changeModelColor(joints[9], cableColor);
+                //changeModelColor(joints[10], cableColor);
+                //changeModelColor(joints[11], cableColor);
+                //changeModelColor(joints[12], cableColor);
+                //changeModelColor(joints[13], cableColor);
 
-                changeModelColor(joints[14], Colors.Gray);
+                //changeModelColor(joints[14], Colors.Gray);
 
-                changeModelColor(joints[15], Colors.Red);
-                changeModelColor(joints[16], Colors.Red);
-                changeModelColor(joints[17], Colors.Red);
+                //changeModelColor(joints[15], Colors.Red);
+                //changeModelColor(joints[16], Colors.Red);
+                //changeModelColor(joints[17], Colors.Red);
 
-                changeModelColor(joints[18], Colors.Gray);
-                changeModelColor(joints[19], Colors.Gray);
+                //changeModelColor(joints[18], Colors.Gray);
+                //changeModelColor(joints[19], Colors.Gray);
 
                 joints[0].angleMin = -180;
                 joints[0].angleMax = 180;
@@ -781,19 +781,19 @@ namespace RobotArmHelix
 #if IRB6700
             joints[6].model.Transform = F1;
             joints[7].model.Transform = F1;
-            joints[19].model.Transform = F1;
-            joints[14].model.Transform = F1;
+            //joints[19].model.Transform = F1;
+            //joints[14].model.Transform = F1;
 
-            joints[8].model.Transform = F2;
-            joints[9].model.Transform = F2;
+            //joints[8].model.Transform = F2;
+            //joints[9].model.Transform = F2;
 
-            joints[10].model.Transform = F3;
-            joints[11].model.Transform = F3;
-            joints[12].model.Transform = F3;
-            joints[16].model.Transform = F3;
+            //joints[10].model.Transform = F3;
+            //joints[11].model.Transform = F3;
+            //joints[12].model.Transform = F3;
+            //joints[16].model.Transform = F3;
 
-            joints[13].model.Transform = F4;
-            joints[17].model.Transform = F4;
+            //joints[13].model.Transform = F4;
+            //joints[17].model.Transform = F4;
 #else
             joints[7].model.Transform = F1; //Cables
 

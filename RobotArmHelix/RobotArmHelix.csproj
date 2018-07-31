@@ -40,7 +40,7 @@
     </Reference>
     <Reference Include="HelixToolkit.Wpf, Version=2014.2.1.1, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\HelixToolkit.Wpf.dll</HintPath>
+      <HintPath>..\..\helix-toolkit\Source\HelixToolkit.Wpf\bin\Debug\HelixToolkit.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
