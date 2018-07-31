@@ -18,10 +18,10 @@
             <h:DefaultLights/>
         </h:HelixViewport3D>
         <Rectangle Fill="#FFFBFBFB" HorizontalAlignment="Left" Height="414" Stroke="Black" VerticalAlignment="Top" Width="306" StrokeThickness="0.5" Margin="4,4,0,0"/>
-        <Slider x:Name="joint1" HorizontalAlignment="Left" Margin="46,133,0,0" VerticalAlignment="Top" Width="210"  Maximum="180" Minimum="-180" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
-        <Slider x:Name="joint2" HorizontalAlignment="Left" Margin="46,181,0,0" VerticalAlignment="Top" Width="210" Maximum="180" Minimum="-180" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
-        <Slider x:Name="joint3" HorizontalAlignment="Left" Margin="45,229,0,0" VerticalAlignment="Top" Width="210" Maximum="180" Minimum="-180" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
-        <Slider x:Name="joint4" HorizontalAlignment="Left" Margin="45,279,0,0" VerticalAlignment="Top" Width="210" Maximum="180" Minimum="-180" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
+        <Slider x:Name="joint1" HorizontalAlignment="Left" Margin="46,133,0,0" VerticalAlignment="Top" Width="210"  Maximum="482" Minimum="-2500" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
+        <Slider x:Name="joint2" HorizontalAlignment="Left" Margin="46,181,0,0" VerticalAlignment="Top" Width="210" Maximum="360" Minimum="0" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
+        <Slider x:Name="joint3" HorizontalAlignment="Left" Margin="45,229,0,0" VerticalAlignment="Top" Width="210" Maximum="150" Minimum="0" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
+        <Slider x:Name="joint4" HorizontalAlignment="Left" Margin="45,279,0,0" VerticalAlignment="Top" Width="210" Maximum="0" Minimum="-150" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
         <Slider x:Name="joint5" HorizontalAlignment="Left" Margin="45,331,0,0" VerticalAlignment="Top" Width="210" Maximum="180" Minimum="-180" ValueChanged="joint_ValueChanged" LargeChange="0.1" TickFrequency="0.1" Height="22"/>
         <Slider x:Name="joint6" HorizontalAlignment="Left" Margin="46,378,0,0" VerticalAlignment="Top" Width="210" Maximum="180" Minimum="-180" ValueChanged="joint_ValueChanged" Height="22" TickFrequency="0.1"/>
         <TextBox x:Name="TbX" Text="1500" HorizontalAlignment="Left" Height="23" Margin="30,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="ReachingPoint_TextChanged"/>
