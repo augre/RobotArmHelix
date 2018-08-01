@@ -74,7 +74,8 @@ namespace RobotArmHelix
         Transform3DGroup F4;
         Transform3DGroup F5;
         Transform3DGroup F6;
-        RotateTransform3D R;
+		Transform3DGroup F7;
+		RotateTransform3D R;
         TranslateTransform3D T;
         Vector3D reachingPoint;
         int movements = 10;
@@ -128,10 +129,10 @@ namespace RobotArmHelix
 			modelsNames.Add(MODEL_PATH3);
 			modelsNames.Add(MODEL_PATH4);
 			modelsNames.Add(MODEL_PATH5);
-			//modelsNames.Add(MODEL_PATH6);
-			//modelsNames.Add(MODEL_PATH7);
-			//modelsNames.Add(MODEL_PATH8);
-			//modelsNames.Add(MODEL_PATH9);
+			modelsNames.Add(MODEL_PATH6);
+			modelsNames.Add(MODEL_PATH7);
+			modelsNames.Add(MODEL_PATH8);
+			modelsNames.Add(MODEL_PATH9);
 			//            modelsNames.Add(MODEL_PATH10);
 			//            modelsNames.Add(MODEL_PATH11);//Until here for the 4600
 #if IRB6700
@@ -163,8 +164,7 @@ namespace RobotArmHelix
             viewPort3d.Camera.UpDirection = new Vector3D(-0.145, 0.372, 0.917);
             viewPort3d.Camera.Position = new Point3D(-1571, 4801, 3774);
 
-			//double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle };
-			double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, 0 };
+			double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle, joints[6].angle, joints[7].angle, joints[8].angle };
 			ForwardKinematics(angles);
 
             changeSelectedJoint();
@@ -204,9 +204,9 @@ namespace RobotArmHelix
 				RA.Children.Add(joints[2].model);
 				RA.Children.Add(joints[3].model);
 				RA.Children.Add(joints[4].model);
-				//RA.Children.Add(joints[5].model);
-				//RA.Children.Add(joints[6].model);
-				//RA.Children.Add(joints[7].model);
+				RA.Children.Add(joints[5].model);
+				RA.Children.Add(joints[6].model);
+				RA.Children.Add(joints[7].model);
 				//RA.Children.Add(joints[8].model);
 				//RA.Children.Add(joints[9].model);
 				//RA.Children.Add(joints[10].model);
@@ -261,7 +261,7 @@ namespace RobotArmHelix
                 joints[1].rotPointZ = 0;
 
 				joints[2].angleMin = 0;
-				joints[2].angleMax = 150;
+				joints[2].angleMax = 360;
 				joints[2].rotAxisX = 1;
 				joints[2].rotAxisY = 0;
 				joints[2].rotAxisZ = 0;
@@ -270,7 +270,7 @@ namespace RobotArmHelix
 				joints[2].rotPointZ = 0;
 
 				joints[3].angleMin = 0;
-				joints[3].angleMax = 150;
+				joints[3].angleMax = 360;
 				joints[3].rotAxisX = 1;
 				joints[3].rotAxisY = 0;
 				joints[3].rotAxisZ = 0;
@@ -287,14 +287,23 @@ namespace RobotArmHelix
 				joints[4].rotPointY = 0;
 				joints[4].rotPointZ = 0;
 
-				//joints[5].angleMin = -180;
-				//joints[5].angleMax = 180;
-				//joints[5].rotAxisX = 1;
-				//joints[5].rotAxisY = 0;
-				//joints[5].rotAxisZ = 0;
-				//joints[5].rotPointX = 2008;
-				//joints[5].rotPointY = 0;
-				//joints[5].rotPointZ = 2125;
+				joints[5].angleMin = -180;
+				joints[5].angleMax = 180;
+				joints[5].rotAxisX = 1;
+				joints[5].rotAxisY = 0;
+				joints[5].rotAxisZ = 0;
+				joints[5].rotPointX = 0;
+				joints[5].rotPointY = 0;
+				joints[5].rotPointZ = 0;
+
+				joints[6].angleMin = -180;
+				joints[6].angleMax = 180;
+				joints[6].rotAxisX = 1;
+				joints[6].rotAxisY = 0;
+				joints[6].rotAxisZ = 0;
+				joints[6].rotPointX = 0;
+				joints[6].rotPointY = 0;
+				joints[6].rotPointZ = 0;
 
 #else
                 changeModelColor(joints[6], Colors.Red);
@@ -479,8 +488,9 @@ namespace RobotArmHelix
             joints[1].angle = joint2.Value;
 			joints[2].angle = joint3.Value;
 			joints[3].angle = joint4.Value;
-			//joints[4].angle = joint5.Value;
-			//joints[5].angle = joint6.Value;
+			joints[4].angle = joint5.Value;
+			joints[5].angle = joint6.Value;
+			joints[6].angle = joint7.Value;
 			execute_fk();
         }
 
@@ -502,10 +512,10 @@ namespace RobotArmHelix
          * */
         private void execute_fk()
         {
-            /** Debug sphere, it takes the x,y,z of the textBoxes and update its position
+			/** Debug sphere, it takes the x,y,z of the textBoxes and update its position
              * This is useful when using x,y,z in the "new Point3D(x,y,z)* when defining a new RotateTransform3D() to check where the joints is actually  rotating */
-            //double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle };
-			double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, 0, 0 };
+			//double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle };
+			double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle, joints[6].angle, joints[7].angle, joints[8].angle };
 			ForwardKinematics(angles);
             updateSpherePosition();
         }
@@ -735,43 +745,52 @@ namespace RobotArmHelix
 			F3 = new Transform3DGroup();
 			T = new TranslateTransform3D(354, 0, 170);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[2].rotAxisX, joints[2].rotAxisY, joints[2].rotAxisZ), angles[2]), new Point3D(joints[2].rotPointX, joints[2].rotPointY, joints[2].rotPointZ));
-			F3.Children.Add(T);
 			F3.Children.Add(R);
+			F3.Children.Add(T);
 			F3.Children.Add(F2);
 
 			//as before
 			F4 = new Transform3DGroup();
-			T = new TranslateTransform3D(-36.5, 325, 0); //1500, 650, 1650
+			T = new TranslateTransform3D(-36.5, 325, 0);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[3].rotAxisX, joints[3].rotAxisY, joints[3].rotAxisZ), angles[3]), new Point3D(joints[3].rotPointX, joints[3].rotPointY, joints[3].rotPointZ));
-			F4.Children.Add(T);
 			F4.Children.Add(R);
+			F4.Children.Add(T);
 			F4.Children.Add(F3);
 
 			//as before
-			//F5 = new Transform3DGroup();
-			//T = new TranslateTransform3D(0, 0, 0);
-			//R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[4].rotAxisX, joints[4].rotAxisY, joints[4].rotAxisZ), angles[4]), new Point3D(joints[4].rotPointX, joints[4].rotPointY, joints[4].rotPointZ));
-			//F5.Children.Add(T);
-			//F5.Children.Add(R);
-			//F5.Children.Add(F4);
+			F5 = new Transform3DGroup();
+			T = new TranslateTransform3D(-354, 0, -170);
+			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[4].rotAxisX, joints[4].rotAxisY, joints[4].rotAxisZ), angles[4]), new Point3D(joints[4].rotPointX, joints[4].rotPointY, joints[4].rotPointZ));
+			F5.Children.Add(R);
+			F5.Children.Add(T);
+			F5.Children.Add(F2);
 
 			//NB: I was having a nightmare trying to understand why it was always rotating in a weird way... SO I realized that the order in which
 			//you add the Children is actually VERY IMPORTANT in fact before I was applyting F and then T and R, but the previous transformation
 			//Should always be applied as last (FORWARD Kinematics)
-			//F6 = new Transform3DGroup();
-			//T = new TranslateTransform3D(0, 0, 0);
-			//R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[5].rotAxisX, joints[5].rotAxisY, joints[5].rotAxisZ), angles[5]), new Point3D(joints[5].rotPointX, joints[5].rotPointY, joints[5].rotPointZ));
-			//F6.Children.Add(T);
-			//F6.Children.Add(R);
-			//F6.Children.Add(F5);
+			F6 = new Transform3DGroup();
+			T = new TranslateTransform3D(36.5, 325, 0);
+			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[5].rotAxisX, joints[5].rotAxisY, joints[5].rotAxisZ), angles[5]), new Point3D(joints[5].rotPointX, joints[5].rotPointY, joints[5].rotPointZ));
+			F6.Children.Add(R);
+			F6.Children.Add(T);
+			F6.Children.Add(F5);
 
+			F7 = new Transform3DGroup();
+			T = new TranslateTransform3D(-360, 450, -325);
+			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[6].rotAxisX, joints[6].rotAxisY, joints[6].rotAxisZ), angles[6]), new Point3D(joints[6].rotPointX, joints[6].rotPointY, joints[6].rotPointZ));
+			//F7.Children.Add(R);
+			F7.Children.Add(T);
+			F7.Children.Add(F4);
 
-			//joints[0].model.Transform = F1; //First joint
-			joints[1].model.Transform = F1; //Second joint (the "biceps")
-            joints[2].model.Transform = F2; //third joint (the "knee" or "elbow")
-			joints[3].model.Transform = F3; //the "forearm"
-			joints[4].model.Transform = F4; //the tool plate
-											//joints[5].model.Transform = F6; //the tool
+			//joints[0].model.Transform = F1; //base no transformation
+			joints[1].model.Transform = F1; //O1
+            joints[2].model.Transform = F2; //O2
+			joints[3].model.Transform = F3; //O3
+			joints[4].model.Transform = F4; //O4
+			joints[5].model.Transform = F5; //O5
+			joints[6].model.Transform = F6; //
+			joints[7].model.Transform = F7;
+			joints[8].model.Transform = F7;
 
 			//Tx.Content = joints[5].model.Bounds.Location.X;
 			//Ty.Content = joints[5].model.Bounds.Location.Y;
