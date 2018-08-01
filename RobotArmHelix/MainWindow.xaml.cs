@@ -164,7 +164,9 @@ namespace RobotArmHelix
             viewPort3d.Camera.UpDirection = new Vector3D(-0.145, 0.372, 0.917);
             viewPort3d.Camera.Position = new Point3D(-1571, 4801, 3774);
 
-			double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle, joints[6].angle, joints[7].angle, joints[8].angle };
+			//double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle, joints[6].angle, joints[7].angle, joints[8].angle };
+			double[] angles = { joints[0].angle, joints[1].angle, 57.89, -48.69, -23.52, 47.04, joints[6].angle, joints[7].angle, joints[8].angle };
+
 			ForwardKinematics(angles);
 
             changeSelectedJoint();
@@ -727,12 +729,6 @@ namespace RobotArmHelix
 			T = new TranslateTransform3D(angles[0], 287.07, 0);
 			F1.Children.Add(T);
 
-			//This moves the first joint attached to the base, it may translate and rotate. Since the joint are already in the right position (the .stl model also store the joints position
-			//in the virtual world when they were first created, so if you load all the .stl models of the joint they will be automatically positioned in the right locations)
-			//so in all of these cases the first translation is always 0, I just left it for future purposes if something need to be moved
-			//After that, the joint needs to rotate of a certain amount (given by the value in the slider), and the rotation must be executed on a specific point
-			//After some testing it looks like the point 175, -200, 500 is the sweet spot to achieve the rotation intended for the joint
-			//finally we also need to apply the transformation applied to the base 
 			F2 = new Transform3DGroup();
 			T = new TranslateTransform3D(0, 156, 0);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[1].rotAxisX, joints[1].rotAxisY, joints[1].rotAxisZ), angles[1]), new Point3D(joints[1].rotPointX, joints[1].rotPointY, joints[1].rotPointZ));
@@ -740,8 +736,6 @@ namespace RobotArmHelix
 			F2.Children.Add(R);
 			F2.Children.Add(F1);
 
-			//The second joint is attached to the first one. As before I found the sweet spot after testing, and looks like is rotating just fine. No pre-translation as before
-			//and again the previous transformation needs to be applied
 			F3 = new Transform3DGroup();
 			T = new TranslateTransform3D(354, 0, 170);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[2].rotAxisX, joints[2].rotAxisY, joints[2].rotAxisZ), angles[2]), new Point3D(joints[2].rotPointX, joints[2].rotPointY, joints[2].rotPointZ));
@@ -749,7 +743,6 @@ namespace RobotArmHelix
 			F3.Children.Add(T);
 			F3.Children.Add(F2);
 
-			//as before
 			F4 = new Transform3DGroup();
 			T = new TranslateTransform3D(-36.5, 325, 0);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[3].rotAxisX, joints[3].rotAxisY, joints[3].rotAxisZ), angles[3]), new Point3D(joints[3].rotPointX, joints[3].rotPointY, joints[3].rotPointZ));
@@ -757,7 +750,6 @@ namespace RobotArmHelix
 			F4.Children.Add(T);
 			F4.Children.Add(F3);
 
-			//as before
 			F5 = new Transform3DGroup();
 			T = new TranslateTransform3D(-354, 0, -170);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[4].rotAxisX, joints[4].rotAxisY, joints[4].rotAxisZ), angles[4]), new Point3D(joints[4].rotPointX, joints[4].rotPointY, joints[4].rotPointZ));
@@ -765,9 +757,6 @@ namespace RobotArmHelix
 			F5.Children.Add(T);
 			F5.Children.Add(F2);
 
-			//NB: I was having a nightmare trying to understand why it was always rotating in a weird way... SO I realized that the order in which
-			//you add the Children is actually VERY IMPORTANT in fact before I was applyting F and then T and R, but the previous transformation
-			//Should always be applied as last (FORWARD Kinematics)
 			F6 = new Transform3DGroup();
 			T = new TranslateTransform3D(36.5, 325, 0);
 			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[5].rotAxisX, joints[5].rotAxisY, joints[5].rotAxisZ), angles[5]), new Point3D(joints[5].rotPointX, joints[5].rotPointY, joints[5].rotPointZ));
@@ -791,6 +780,10 @@ namespace RobotArmHelix
 			joints[6].model.Transform = F6; //
 			joints[7].model.Transform = F7;
 			joints[8].model.Transform = F7;
+
+			Matrix3D matrix3 = joints[7].model.Transform.Value;
+			this.Title = matrix3.OffsetX.ToString() + " " + matrix3.OffsetY.ToString() + " " + matrix3.OffsetZ.ToString();
+
 
 			//Tx.Content = joints[5].model.Bounds.Location.X;
 			//Ty.Content = joints[5].model.Bounds.Location.Y;
