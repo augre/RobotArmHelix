@@ -1,6 +1,4 @@
-﻿#define IRB6700
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HelixToolkit.Wpf;
 using System.IO;
+using MEIRobotGeomLib;
 
 
 /**
@@ -81,7 +80,7 @@ namespace RobotArmHelix
         int movements = 10;
         System.Windows.Forms.Timer timer1;
 
-#if IRB6700
+
         //directroy of all stl files
         private const string MODEL_PATH1 = "PPT_O0.stl";
         private const string MODEL_PATH2 = "PPT_O1.stl";
@@ -92,39 +91,15 @@ namespace RobotArmHelix
 		private const string MODEL_PATH7 = "PPT_O6.stl";
         private const string MODEL_PATH8 = "PPT_O7.stl";
         private const string MODEL_PATH9 = "PPT_O8.stl";
-        //private const string MODEL_PATH10 = "IRB6700-MH3_245-300_IRC5_rev00_LINK02m_CABLE.stl";
-        //private const string MODEL_PATH11 = "IRB6700-MH3_245-300_IRC5_rev00_LINK03a_CABLE.stl";
-        //private const string MODEL_PATH12 = "IRB6700-MH3_245-300_IRC5_rev00_LINK03b_CABLE.stl";
-        //private const string MODEL_PATH13 = "IRB6700-MH3_245-300_IRC5_rev02_LINK03m_CABLE.stl";
-        //private const string MODEL_PATH14 = "IRB6700-MH3_245-300_IRC5_rev01_LINK04_CABLE.stl";
-        //private const string MODEL_PATH15 = "IRB6700-MH3_245-300_IRC5_rev00_ROD_CAD.stl";
-        //private const string MODEL_PATH16 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO1_CAD.stl";
-        //private const string MODEL_PATH17 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO2_CAD.stl";
-        //private const string MODEL_PATH18 = "IRB6700-MH3_245-300_IRC5_rev00_LOGO3_CAD.stl";
-        //private const string MODEL_PATH19 = "IRB6700-MH3_245-300_IRC5_rev01_BASE_CAD.stl";
-        //private const string MODEL_PATH20 = "IRB6700-MH3_245-300_IRC5_rev00_CYLINDER_CAD.stl";
-#else
-
-        private const string MODEL_PATH1 = "IRB4600_20kg-250_LINK1_CAD_rev04.stl";
-        private const string MODEL_PATH2 = "IRB4600_20kg-250_LINK2_CAD_rev04.stl";
-        private const string MODEL_PATH3 = "IRB4600_20kg-250_LINK3_CAD_rev005.stl";
-        private const string MODEL_PATH4 = "IRB4600_20kg-250_LINK4_CAD_rev04.stl";
-        private const string MODEL_PATH5 = "IRB4600_20kg-250_LINK5_CAD_rev04.stl";
-        private const string MODEL_PATH6 = "IRB4600_20kg-250_LINK6_CAD_rev04.stl";
-        private const string MODEL_PATH7 = "IRB4600_20kg-250_LINK3_CAD_rev04.stl";
-        private const string MODEL_PATH8 = "IRB4600_20kg-250_CABLES_LINK1_rev03.stl";
-        private const string MODEL_PATH9 = "IRB4600_20kg-250_CABLES_LINK2_rev03.stl";
-        private const string MODEL_PATH10 = "IRB4600_20kg-250_CABLES_LINK3_rev03.stl";
-        private const string MODEL_PATH11 = "IRB4600_20kg-250_BASE_CAD_rev04.stl";
-#endif
 
 
         public MainWindow()
         {
             InitializeComponent();
-            basePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\3D_Models\\";
+			basePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\3D_Models\\";
             List<string> modelsNames = new List<string>();
-            modelsNames.Add(MODEL_PATH1);
+
+			modelsNames.Add(MODEL_PATH1);
             modelsNames.Add(MODEL_PATH2);
 			modelsNames.Add(MODEL_PATH3);
 			modelsNames.Add(MODEL_PATH4);
@@ -133,19 +108,6 @@ namespace RobotArmHelix
 			modelsNames.Add(MODEL_PATH7);
 			modelsNames.Add(MODEL_PATH8);
 			modelsNames.Add(MODEL_PATH9);
-			//            modelsNames.Add(MODEL_PATH10);
-			//            modelsNames.Add(MODEL_PATH11);//Until here for the 4600
-#if IRB6700
-			//            modelsNames.Add(MODEL_PATH12);
-			//            modelsNames.Add(MODEL_PATH13);
-			//            modelsNames.Add(MODEL_PATH14);
-			//            modelsNames.Add(MODEL_PATH15);
-			//            modelsNames.Add(MODEL_PATH16);
-			//            modelsNames.Add(MODEL_PATH17);
-			//            modelsNames.Add(MODEL_PATH18);
-			//            modelsNames.Add(MODEL_PATH19);
-			//            modelsNames.Add(MODEL_PATH20);
-#endif
 			RoboticArm.Content = Initialize_Environment(modelsNames);
 
             /** Debug sphere to check in which point the joint is rotating**/
@@ -164,8 +126,8 @@ namespace RobotArmHelix
             viewPort3d.Camera.UpDirection = new Vector3D(-0.145, 0.372, 0.917);
             viewPort3d.Camera.Position = new Point3D(-1571, 4801, 3774);
 
-			//double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle, joints[6].angle, joints[7].angle, joints[8].angle };
-			double[] angles = { joints[0].angle, joints[1].angle, 57.89, -48.69, -23.52, 47.04, joints[6].angle, joints[7].angle, joints[8].angle };
+			double[] angles = { joints[0].angle, joints[1].angle, joints[2].angle, joints[3].angle, joints[4].angle, joints[5].angle, joints[6].angle, joints[7].angle, joints[8].angle };
+			//double[] angles = { joints[0].angle, joints[1].angle, 57.89, -48.69, -23.52, 47.04, joints[6].angle, joints[7].angle, joints[8].angle };
 
 			ForwardKinematics(angles);
 
@@ -174,7 +136,11 @@ namespace RobotArmHelix
             timer1 = new System.Windows.Forms.Timer();
             timer1.Interval = 5;
             timer1.Tick += new System.EventHandler(timer1_Tick);
-        }
+
+			joint3.Value = 26;
+			joint4.Value = -26;
+			joint5.Value = -26;
+		}
 
         private Model3DGroup Initialize_Environment(List<string> modelsNames)
         {
@@ -209,40 +175,9 @@ namespace RobotArmHelix
 				RA.Children.Add(joints[5].model);
 				RA.Children.Add(joints[6].model);
 				RA.Children.Add(joints[7].model);
-				//RA.Children.Add(joints[8].model);
-				//RA.Children.Add(joints[9].model);
-				//RA.Children.Add(joints[10].model);
-#if IRB6700
-				//RA.Children.Add(joints[11].model);
-				//RA.Children.Add(joints[12].model);
-				//RA.Children.Add(joints[13].model);
-				//RA.Children.Add(joints[14].model);
-				//RA.Children.Add(joints[15].model);
-				//RA.Children.Add(joints[16].model);
-				//RA.Children.Add(joints[17].model);
-				//RA.Children.Add(joints[18].model);
-				//RA.Children.Add(joints[19].model);
-#endif
+				RA.Children.Add(joints[8].model);
 
-#if IRB6700
 				Color cableColor = Colors.DarkSlateGray;
-                //changeModelColor(joints[6], cableColor);
-                //changeModelColor(joints[7], cableColor);
-                //changeModelColor(joints[8], cableColor);
-                //changeModelColor(joints[9], cableColor);
-                //changeModelColor(joints[10], cableColor);
-                //changeModelColor(joints[11], cableColor);
-                //changeModelColor(joints[12], cableColor);
-                //changeModelColor(joints[13], cableColor);
-
-                //changeModelColor(joints[14], Colors.Gray);
-
-                //changeModelColor(joints[15], Colors.Red);
-                //changeModelColor(joints[16], Colors.Red);
-                //changeModelColor(joints[17], Colors.Red);
-
-                //changeModelColor(joints[18], Colors.Gray);
-                //changeModelColor(joints[19], Colors.Gray);
 
                 joints[0].angleMin = 482;
                 joints[0].angleMax = 2500;
@@ -263,7 +198,7 @@ namespace RobotArmHelix
                 joints[1].rotPointZ = 0;
 
 				joints[2].angleMin = 0;
-				joints[2].angleMax = 360;
+				joints[2].angleMax = 150;
 				joints[2].rotAxisX = 1;
 				joints[2].rotAxisY = 0;
 				joints[2].rotAxisZ = 0;
@@ -272,7 +207,7 @@ namespace RobotArmHelix
 				joints[2].rotPointZ = 0;
 
 				joints[3].angleMin = 0;
-				joints[3].angleMax = 360;
+				joints[3].angleMax = 150;
 				joints[3].rotAxisX = 1;
 				joints[3].rotAxisY = 0;
 				joints[3].rotAxisZ = 0;
@@ -289,8 +224,8 @@ namespace RobotArmHelix
 				joints[4].rotPointY = 0;
 				joints[4].rotPointZ = 0;
 
-				joints[5].angleMin = -180;
-				joints[5].angleMax = 180;
+				joints[5].angleMin = -150;
+				joints[5].angleMax = 0;
 				joints[5].rotAxisX = 1;
 				joints[5].rotAxisY = 0;
 				joints[5].rotAxisZ = 0;
@@ -298,88 +233,14 @@ namespace RobotArmHelix
 				joints[5].rotPointY = 0;
 				joints[5].rotPointZ = 0;
 
-				joints[6].angleMin = -180;
-				joints[6].angleMax = 180;
+				joints[6].angleMin = -150;
+				joints[6].angleMax = 0;
 				joints[6].rotAxisX = 1;
 				joints[6].rotAxisY = 0;
 				joints[6].rotAxisZ = 0;
 				joints[6].rotPointX = 0;
 				joints[6].rotPointY = 0;
-				joints[6].rotPointZ = 0;
-
-#else
-                changeModelColor(joints[6], Colors.Red);
-                changeModelColor(joints[7], Colors.Black);
-                changeModelColor(joints[8], Colors.Black);
-                changeModelColor(joints[9], Colors.Black);
-                changeModelColor(joints[10], Colors.Gray);
-
-                RA.Children.Add(joints[0].model);
-                RA.Children.Add(joints[1].model);
-                RA.Children.Add(joints[2].model);
-                RA.Children.Add(joints[3].model);
-                RA.Children.Add(joints[4].model);
-                RA.Children.Add(joints[5].model);
-                RA.Children.Add(joints[6].model);
-                RA.Children.Add(joints[7].model);
-                RA.Children.Add(joints[8].model);
-                RA.Children.Add(joints[9].model);
-                RA.Children.Add(joints[10].model);
-                
-                joints[0].angleMin = -180;
-                joints[0].angleMax = 180;
-                joints[0].rotAxisX = 0;
-                joints[0].rotAxisY = 0;
-                joints[0].rotAxisZ = 1;
-                joints[0].rotPointX = 0;
-                joints[0].rotPointY = 0;
-                joints[0].rotPointZ = 0;
-
-                joints[1].angleMin = -100;
-                joints[1].angleMax = 60;
-                joints[1].rotAxisX = 0;
-                joints[1].rotAxisY = 1;
-                joints[1].rotAxisZ = 0;
-                joints[1].rotPointX = 175; 
-                joints[1].rotPointY = -200;
-                joints[1].rotPointZ = 500;
-
-                joints[2].angleMin = -90;
-                joints[2].angleMax = 90;
-                joints[2].rotAxisX = 0;
-                joints[2].rotAxisY = 1;
-                joints[2].rotAxisZ = 0;
-                joints[2].rotPointX = 190;
-                joints[2].rotPointY = -700;
-                joints[2].rotPointZ = 1595;
-
-                joints[3].angleMin = -180;
-                joints[3].angleMax = 180;
-                joints[3].rotAxisX = 1;
-                joints[3].rotAxisY = 0;
-                joints[3].rotAxisZ = 0;
-                joints[3].rotPointX = 400;
-                joints[3].rotPointY = 0;
-                joints[3].rotPointZ = 1765;
-
-                joints[4].angleMin = -115;
-                joints[4].angleMax = 115;
-                joints[4].rotAxisX = 0;
-                joints[4].rotAxisY = 1;
-                joints[4].rotAxisZ = 0;
-                joints[4].rotPointX = 1405;
-                joints[4].rotPointY = 50;
-                joints[4].rotPointZ = 1765;
-
-                joints[5].angleMin = -180;
-                joints[5].angleMax = 180;
-                joints[5].rotAxisX = 1;
-                joints[5].rotAxisY = 0;
-                joints[5].rotAxisZ = 0;
-                joints[5].rotPointX = 1405;
-                joints[5].rotPointY = 0;
-                joints[5].rotPointZ = 1765;
-#endif
+				joints[6].rotPointZ = 325;
 			}
 			catch (Exception e)
             {
@@ -721,6 +582,25 @@ namespace RobotArmHelix
             return Math.Sqrt(Math.Pow((point.X - target.X), 2.0) + Math.Pow((point.Y - target.Y), 2.0) + Math.Pow((point.Z - target.Z), 2.0));
         }
         
+		public Point getAngle1(double [] angles)
+		{
+			double L1 = 325, L2=430, L3=650;
+			Point i1 = new Point(0, 0);
+			Point i2 = new Point(0, 0);
+			Point O4 = new Point(0, 0);
+			Point O7 = new Point(0, 0);
+			Point O6 = new Point(0, 0);
+			double O4a = 180 - (180 - (angles[2] + 90) + Math.Abs(angles[3]));
+			O4.X = L1 * Math.Cos(CommonMath.Deg2Rad(angles[2] + 90)) - 170;
+			O4.Y = L1 * Math.Sin(CommonMath.Deg2Rad(angles[2] + 90));
+			O7.X = L2 * Math.Cos(CommonMath.Deg2Rad(O4a)) + O4.X;
+			O7.Y = L2 * Math.Sin(CommonMath.Deg2Rad(O4a)) + O4.Y;
+			O6.X = L1 * Math.Cos(CommonMath.Deg2Rad(angles[4]+ 90)) + 170;
+			O6.Y = L1 * Math.Sin(CommonMath.Deg2Rad(angles[4]+ 90));
+			CommonMath.FindCircleCircleIntersections(O7.X, O7.Y, L3, O6.X, O6.Y, L2, out i1, out i2);
+			Point a = new Point( CommonMath.getMagicAngle(O4, L2, L3, i2), CommonMath.getMagicAngle(new Point(170, 0), L1, L2, i2));
+			return a;
+		}
 
         public Vector3D ForwardKinematics(double [] angles)
         {            
@@ -759,15 +639,17 @@ namespace RobotArmHelix
 
 			F6 = new Transform3DGroup();
 			T = new TranslateTransform3D(36.5, 325, 0);
-			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[5].rotAxisX, joints[5].rotAxisY, joints[5].rotAxisZ), angles[5]), new Point3D(joints[5].rotPointX, joints[5].rotPointY, joints[5].rotPointZ));
+			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[5].rotAxisX, joints[5].rotAxisY, joints[5].rotAxisZ), getAngle1(angles).Y), new Point3D(joints[5].rotPointX, joints[5].rotPointY, joints[5].rotPointZ));
 			F6.Children.Add(R);
 			F6.Children.Add(T);
 			F6.Children.Add(F5);
 
 			F7 = new Transform3DGroup();
 			T = new TranslateTransform3D(-360, 450, -325);
-			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[6].rotAxisX, joints[6].rotAxisY, joints[6].rotAxisZ), angles[6]), new Point3D(joints[6].rotPointX, joints[6].rotPointY, joints[6].rotPointZ));
-			//F7.Children.Add(R);
+			double a = 90 - getAngle1(angles).X;
+			this.Title = a.ToString();
+			R = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(joints[6].rotAxisX, joints[6].rotAxisY, joints[6].rotAxisZ), a), new Point3D(joints[6].rotPointX, joints[6].rotPointY, joints[6].rotPointZ));
+			F7.Children.Add(R);
 			F7.Children.Add(T);
 			F7.Children.Add(F4);
 
@@ -780,42 +662,6 @@ namespace RobotArmHelix
 			joints[6].model.Transform = F6; //
 			joints[7].model.Transform = F7;
 			joints[8].model.Transform = F7;
-
-			Matrix3D matrix3 = joints[7].model.Transform.Value;
-			this.Title = matrix3.OffsetX.ToString() + " " + matrix3.OffsetY.ToString() + " " + matrix3.OffsetZ.ToString();
-
-
-			//Tx.Content = joints[5].model.Bounds.Location.X;
-			//Ty.Content = joints[5].model.Bounds.Location.Y;
-			//Tz.Content = joints[5].model.Bounds.Location.Z;
-			//Tx_Copy.Content = geom.Bounds.Location.X;
-			//Ty_Copy.Content = geom.Bounds.Location.Y;
-			//Tz_Copy.Content = geom.Bounds.Location.Z;
-
-#if IRB6700
-			//joints[6].model.Transform = F1;
-			//joints[7].model.Transform = F1;
-			//joints[19].model.Transform = F1;
-			//joints[14].model.Transform = F1;
-
-			//joints[8].model.Transform = F2;
-			//joints[9].model.Transform = F2;
-
-			//joints[10].model.Transform = F3;
-			//joints[11].model.Transform = F3;
-			//joints[12].model.Transform = F3;
-			//joints[16].model.Transform = F3;
-
-			//joints[13].model.Transform = F4;
-			//joints[17].model.Transform = F4;
-#else
-            joints[7].model.Transform = F1; //Cables
-
-            joints[8].model.Transform = F2; //Cables
-
-            joints[6].model.Transform = F3; //The ABB writing
-            joints[9].model.Transform = F3; //Cables
-#endif
 
 			return new Vector3D(joints[1].model.Bounds.Location.X, joints[1].model.Bounds.Location.Y, joints[1].model.Bounds.Location.Z);
         }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotArmHelix", "RobotArmHe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixToolkit.Wpf", "..\helix-toolkit\Source\HelixToolkit.Wpf\HelixToolkit.Wpf.csproj", "{3F3B4548-A9DB-4874-86F7-E7C4FEC8A351}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEIRobotGeomLibF", "..\MEIRobotGeomLibF\MEIRobotGeomLibF.csproj", "{17BA36CC-A5DD-4CD2-9C9A-AB3A2FE59F54}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\helix-toolkit\Source\HelixToolkit.Shared\HelixToolkit.Shared.projitems*{3f3b4548-a9db-4874-86f7-e7c4fec8a351}*SharedItemsImports = 4
@@ -24,6 +26,10 @@ Global
 		{3F3B4548-A9DB-4874-86F7-E7C4FEC8A351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3B4548-A9DB-4874-86F7-E7C4FEC8A351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3B4548-A9DB-4874-86F7-E7C4FEC8A351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BA36CC-A5DD-4CD2-9C9A-AB3A2FE59F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BA36CC-A5DD-4CD2-9C9A-AB3A2FE59F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BA36CC-A5DD-4CD2-9C9A-AB3A2FE59F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BA36CC-A5DD-4CD2-9C9A-AB3A2FE59F54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
